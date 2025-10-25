@@ -32,7 +32,7 @@ Destaque: integração simples com **E-commerce e marketplaces**.
 
 ---
 
-##  Problemas Que o Sistema Resolve  
+##  Problemas que o Sistema Resolve  
 
 ### **Falta de controle do estoque**  
 Empresas perdem vendas ou compram produtos em excesso por não saberem o que realmente têm no estoque.  
