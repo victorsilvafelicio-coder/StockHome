@@ -1,84 +1,67 @@
 #  Nível 2 – Diagrama de Contêineres (StockHome ERP)
 
 
-O diagrama de contêineres mostra as **partes de execução do sistema** — os módulos principais, suas funções e interações.  
-Cada contêiner representa uma parte lógica do StockHome ERP.
+Este diagrama mostra como o sistema é dividido em contêineres executáveis, como eles se comunicam e onde cada módulo do ERP atua.
+Cada contêiner representa uma macroestrutura técnica do sistema: Web App, API Backend, Banco de Dados, Serviços Externos e Mensageria.
+
+- O Web App permite aos usuários acessar módulos como Vendas, Estoque, CRM e Financeiro.
+- A API Backend concentra toda a lógica de negócio (rotas, validações, integrações, permissões).
+- O Banco de Dados guarda todos os módulos: vendas, estoque, clientes, financeiro, compras etc.
+- O Serviço de Mensageria é responsável por alertas, notificações e tickets de suporte.
+- Os Sistemas Externos incluem E-commerce, Marketplaces e gateways fiscais.
 
 
 ```mermaid
 graph TB
-  %% ======= NÓS =======
-  A[Usuários do Sistema<br>Gerentes, Equipe de Estoque, Suporte] --->|Acessam via navegador| B[Web App – Interface do Usuário]
-  B --->|Requisições HTTP/JSON| C[API Backend – Serviços Principais]
-  C --->|Consultas e atualizações| D[(Banco de Dados – PostgreSQL/MySQL)]
-  C --->|Envio e recebimento de mensagens| E[Serviço de Mensageria – Notificações/Help Desk]
-  C --->|Integrações externas| F[Sistemas Externos – E-commerce / Marketplaces / ERP Parceiros]
 
+%% ================================
+%% ATORES EXTERNOS
+%% ================================
+A[Usuários do Sistema<br/>Vendas, Estoque, Financeiro, Suporte] -->|Acessam| B[Web App – Interface do ERP]
 
-  %% ======= DETALHES DE MÓDULOS =======
-  subgraph WEB[ Web App]
-    B1[Vendas e Orçamentos]
-    B2[Estoque e Inventário]
-    B3[Relatórios e Dashboards]
-  end
+%% ================================
+%% CONTÊINERES PRINCIPAIS
+%% ================================
+B -->|Chamadas HTTP/JSON| C[API Backend – Serviços do ERP]
+C -->|Consultas e Escritas| D[(Banco de Dados – PostgreSQL)]
+C -->|Eventos e Alertas| E[Serviço de Mensageria – Notificações]
+C -->|Integrações| F[Sistemas Externos<br/>E-commerce, Marketplaces, Financeiro]
 
+%% ================================
+%% SUBCONTAINERS (APENAS NOMES DOS MÓDULOS)
+%% ================================
+subgraph WEB[Web App]
+    W1[Vendas e Orçamentos]
+    W2[Estoque e Inventário]
+    W3[Clientes CRM]
+    W4[Financeiro]
+    W5[Compras]
+    W6[Relatórios e BI]
+end
 
-  subgraph API[ API Backend]
-    C1[Gestão de Clientes]
-    C2[Gestão de Projetos e Tarefas]
-    C3[Controle de Produção]
-  end
+subgraph API[API Backend]
+    A1[Rotas de Vendas]
+    A2[Rotas de Estoque]
+    A3[Rotas de Clientes]
+    A4[Rotas Financeiras]
+    A5[Rotas de Compras]
+    A6[Rotas de Relatórios]
+end
 
+subgraph DB[Banco de Dados]
+    D1[Schema Vendas]
+    D2[Schema Estoque]
+    D3[Schema CRM]
+    D4[Schema Financeiro]
+    D5[Schema Compras]
+    D6[Schema BI]
+end
 
-  subgraph DB[ Banco de Dados]
-    D1[Recursos Humanos]
-    D2[Logística e Entregas]
-    D3[Financeiro]
-  end
-
-
-  %% CONEXÕES INTERNAS ENTRE SUBGRÁFICOS
-  B -->|Consome endpoints| C
-  C -->|Lê e grava dados| D
-  C -->|Publica eventos| E
-  E -->|Notifica suporte| A
-
-
-  %% ======= ESTILOS INDIVIDUAIS =======
-  %% Usuários
-  style A fill:#F9E79F,stroke:#B7950B,stroke-width:2px,color:#000,font-size:13px,font-weight:bold;
- 
-  %% Web App (container principal)
-  style B fill:#AED6F1,stroke:#2E86C1,stroke-width:3px,color:#000,font-size:14px,font-weight:bold;
-  style B1 fill:#D6EAF8,stroke:#1F618D,stroke-width:2px,color:#000,font-size:12px;
-  style B2 fill:#D6EAF8,stroke:#1F618D,stroke-width:2px,color:#000,font-size:12px;
-  style B3 fill:#D6EAF8,stroke:#1F618D,stroke-width:2px,color:#000,font-size:12px;
-
-
-  %% API Backend
-  style C fill:#A9DFBF,stroke:#1D8348,stroke-width:3px,color:#000,font-size:14px,font-weight:bold;
-  style C1 fill:#D5F5E3,stroke:#117A65,stroke-width:2px,color:#000,font-size:12px;
-  style C2 fill:#D5F5E3,stroke:#117A65,stroke-width:2px,color:#000,font-size:12px;
-  style C3 fill:#D5F5E3,stroke:#117A65,stroke-width:2px,color:#000,font-size:12px;
-
-
-  %% Banco de Dados
-  style D fill:#E8DAEF,stroke:#6C3483,stroke-width:3px,color:#000,font-size:14px,font-weight:bold;
-  style D1 fill:#EBDEF0,stroke:#633974,stroke-width:2px,color:#000,font-size:12px;
-  style D2 fill:#EBDEF0,stroke:#633974,stroke-width:2px,color:#000,font-size:12px;
-  style D3 fill:#EBDEF0,stroke:#633974,stroke-width:2px,color:#000,font-size:12px;
-
-
-  %% Serviço de Mensageria
-  style E fill:#F5B7B1,stroke:#943126,stroke-width:3px,color:#000,font-size:13px,font-weight:bold;
-
-
-  %% Integrações externas
-  style F fill:#ABEBC6,stroke:#1E8449,stroke-width:3px,color:#000,font-size:13px,font-weight:bold;
-
-
-
-
-
-
-
+%% ================================
+%% ESTILOS (Opcional)
+%% ================================
+style B fill:#AED6F1,stroke:#2E86C1,stroke-width:3px
+style C fill:#A9DFBF,stroke:#1D8348,stroke-width:3px
+style D fill:#E8DAEF,stroke:#6C3483,stroke-width:3px
+style E fill:#F5B7B1,stroke:#943126,stroke-width:3px
+style F fill:#F9E79F,stroke:#B7950B,stroke-width:3px
