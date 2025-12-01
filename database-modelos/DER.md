@@ -7,7 +7,12 @@ Este documento apresenta uma explicação detalhada e textual do Diagrama Entida
 - A cardinalidade de cada relação  
 - O propósito de cada conexão dentro do modelo  
 
-O objetivo é facilitar o entendimento lógico do modelo de dados e sua interpretação sem necessidade de visualizar o diagrama gráfico.
+O objetivo é facilitar o entendimento lógico do modelo de dados e sua interpretação.
+
+
+
+<img width="1531" height="1321" alt="DER png" src="https://github.com/user-attachments/assets/388d4a94-3565-4ae9-ab66-c2373e1efa29" />
+
 
 ---
 
