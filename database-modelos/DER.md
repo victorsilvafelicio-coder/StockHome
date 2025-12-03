@@ -9,7 +9,8 @@ Este documento apresenta uma explicação detalhada e textual do Diagrama Entida
 
 O objetivo é facilitar o entendimento lógico do modelo de dados e sua interpretação.
 
-<img width="1608" height="1432" alt="DER" src="https://github.com/user-attachments/assets/38e1877e-a6d8-4e4f-8082-adc20cc1b332" />
+
+<img width="1608" height="1432" alt="DER" src="https://github.com/user-attachments/assets/1954fa67-5706-48f4-9bd5-854e11d499ce" />
 
 ---
 
