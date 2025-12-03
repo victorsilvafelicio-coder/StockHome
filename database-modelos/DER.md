@@ -9,7 +9,7 @@ Este documento apresenta uma explicação detalhada e textual do Diagrama Entida
 
 O objetivo é facilitar o entendimento lógico do modelo de dados e sua interpretação.
 
-<img width="1608" height="1571" alt="DER" src="https://github.com/user-attachments/assets/e784ba07-3fbd-494c-8f5f-cebc9afd8f42" />
+<img width="1608" height="1432" alt="DER" src="https://github.com/user-attachments/assets/38e1877e-a6d8-4e4f-8082-adc20cc1b332" />
 
 ---
 
@@ -219,7 +219,6 @@ Registra a relação entre produtos e fornecedores, armazenando as informações
 | USUÁRIOS → TIPO_USUÁRIO | N:1 |
 | PRODUTOS → PRODUTOS_FORNECEDOR | 1:N |
 | FORNECEDORES → PRODUTOS_FORNECEDOR | 1:N |
-
 ---
 
 #  4. Considerações Finais
