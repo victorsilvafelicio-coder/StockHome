@@ -139,6 +139,24 @@ Inclui:
 - **id_tipo_usuario (PK)** – Identificador  
 - **nome_tipo** – Nome do tipo/permissão  
 - **descricao** – Detalhes  
+---
+
+## 2.15 **CATEGORIAS_FINANCEIRAS**
+- **id_categoria (PK)** – Identificador  
+- **nome_categoria** – Nome da categoria  
+- **descricao** – Descrição  
+- **tipo** – Entrada/Saída  
+- **data_criacao** – Data de criação  
+
+---
+## 2.16 **PRODUTO_FORNECEDOR**
+- **id_produto_fornecedor (PK)** – Identificador  
+- **id_produto (FK)** – Produto associado  
+- **id_fornecedor (FK)** – Fornecedor associado  
+- **preco_custo** – Preço de custo  
+- **prazo_entrega_dias** – Prazo de entrega  
+- **codigo_barras** – Código do produto  
+- **data_criacao** – Data do registro
 
 ---
 
@@ -174,17 +192,31 @@ Um cliente pode abrir vários chamados.
 ### TIPO_USUÁRIO **1:N** USUÁRIOS  
 Tipos classificam usuários por permissão.
 
+### PRODUTOS **1:N** PRODUTO_FORNECEDOR
+Um produto pode ser fornecido por vários fornecedores diferentes.
+
+### FORNECEDORES **1:N** PRODUTO_FORNECEDOR
+Um fornecedor pode fornecer vários produtos.
+
+### CATEGORIAS_FINANCEIRAS **1:N** TRANSAÇÕES_FINANCEIRAS
+Cada transação financeira deve pertencer a uma única categoria, enquanto uma categoria pode ser usada em várias transações.
+
+
 ---
 
 # 4. Justificativas dos Relacionamentos
 
-1. **Pedidos dependem de Clientes** — pois só clientes podem realizar pedidos.  
-2. **Itens de pedido ficam separados** — seguindo normalização (evita repetição de dados).  
-3. **Movimentações de estoque são independentes** — fundamental para auditoria.  
-4. **Compras vinculam fornecedores e produtos** — permitindo rastreamento de origem e custos.  
-5. **Chamados dependem de Clientes** — suporte sempre nasce de um cliente.  
-6. **Usuários possuem Tipos** — necessário para controle de acesso.  
-7. **Envio vinculado apenas ao Pedido** — envio é único por pedido.  
+1.  **Pedidos dependem de Clientes** — pois só clientes podem realizar pedidos.  
+2.  **Itens de pedido ficam separados** — seguindo normalização (evita repetição de dados).  
+3.  **Movimentações de estoque são independentes** — fundamental para auditoria.  
+4.  **Compras vinculam fornecedores e produtos** — permitindo rastreamento de origem e custos.  
+5.  **Chamados dependem de Clientes** — suporte sempre nasce de um cliente.  
+6.  **Usuários possuem Tipos** — necessário para controle de acesso.  
+7.  **Envio vinculado apenas ao Pedido** — envio é único por pedido.
+8.  **Categorias financeiras organizam as transações** — garantindo que cada lançamento financeiro seja classificado corretamente para controle e análise.
+9.  **Tabela associativa Produto_Fornecedor evita redundância** — permite mapear quais fornecedores fornecem quais produtos sem duplicar informações, mantendo a normalização do modelo.
+10. **Um produto pode ter vários fornecedores** — necessário para garantir segurança de fornecimento e alternativas de compra.
+11. **Um fornecedor pode fornecer vários produtos** — refletindo a realidade comercial, onde fornecedores trabalham com diversos itens.
 
 ---
 
@@ -204,6 +236,14 @@ Tipos classificam usuários por permissão.
 12. Todo ajuste manual de estoque deve ser registrado com justificativa e usuário responsável.
 13. Clientes cadastrados sem CPF ou CNPJ válido não podem realizar pedidos.
 14. Cada usuário deve estar vinculado a um tipo de usuário (perfil/permissão).
+15. Cada categoria financeira deve ser classificada obrigatoriamente como entrada ou saída.
+16. Categorias financeiras inativas não podem ser utilizadas ao registrar novas transações.
+17. O sistema deve impedir a exclusão de categorias financeiras que já estejam vinculadas a transações registradas.
+18. Toda transação financeira deve estar vinculada a exatamente uma categoria financeira ativa.
+19. Um produto só pode ser associado a fornecedores ativos no sistema.
+20. A associação entre produto e fornecedor não pode ser duplicada (mesmo produto + mesmo fornecedor só pode existir uma vez na tabela associativa).
+21. Um produto só pode ser comprado de fornecedores que estejam previamente cadastrados na tabela Produto_Fornecedor.
+22. Um fornecedor só pode aparecer em uma compra se estiver associado ao produto solicitado.
+23. A remoção de uma associação produto–fornecedor só é permitida se não houver compras pendentes daquele fornecedor para aquele produto.
 
 ---
-
