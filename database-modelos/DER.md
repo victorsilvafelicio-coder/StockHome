@@ -9,10 +9,7 @@ Este documento apresenta uma explicação detalhada e textual do Diagrama Entida
 
 O objetivo é facilitar o entendimento lógico do modelo de dados e sua interpretação.
 
-
-
-<img width="1531" height="1321" alt="DER png" src="https://github.com/user-attachments/assets/388d4a94-3565-4ae9-ab66-c2373e1efa29" />
-
+<img width="1608" height="1571" alt="DER" src="https://github.com/user-attachments/assets/e784ba07-3fbd-494c-8f5f-cebc9afd8f42" />
 
 ---
 
@@ -193,6 +190,15 @@ Classifica usuários por permissões e papéis no sistema.
 ###  Relacionamentos:
 - **TIPO_USUÁRIO 1:N USUÁRIOS**
 
+
+## 2.16 **PRODUTO_FORNECEDOR**
+Registra a relação entre produtos e fornecedores, armazenando as informações necessárias para identificar qual fornecedor está associado a qual produto. Serve como uma tabela de vínculo (tabela de associação) para permitir que um produto tenha vários fornecedores e um fornecedor possa fornecer vários produtos.
+
+###  Relacionamentos:
+- **PRODUTO_FORNECEDOR N:1 PRODUTO**
+- **PRODUTO_FORNECEDOR N:1 FORNECEDOR**
+
+
 ---
 
 #  3. Cardinalidades Resumidas
@@ -211,6 +217,8 @@ Classifica usuários por permissões e papéis no sistema.
 | TRANSAÇÕES_FINANCEIRAS → NOTA_FISCAL | 1:1 |
 | CATEGORIAS_FINANCEIRAS → TRANSAÇÕES_FINANCEIRAS | 1:N |
 | USUÁRIOS → TIPO_USUÁRIO | N:1 |
+| PRODUTOS → PRODUTOS_FORNECEDOR | 1:N |
+| FORNECEDORES → PRODUTOS_FORNECEDOR | 1:N |
 
 ---
 
