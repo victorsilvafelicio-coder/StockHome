@@ -87,4 +87,4 @@ O sistema será destinado a empresas de **médio a grande porte** do setor de co
 - Relatórios personalizáveis  
 - Dashboards em tempo real  
 - Indicadores de desempenho (KPIs)
->>>>>>> e865c48908d1a3e0b855e86c3e59687006fd120a
+
